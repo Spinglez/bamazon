@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "node.JS app that allows browsing and purchasing through the command line",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spinglez/bamazon.git"
+  },
+  "author": "Christian Cabrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spinglez/bamazon/issues"
+  },
+  "homepage": "https://github.com/Spinglez/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1",
+    "mysql": "^2.16.0"
+  }
+}
