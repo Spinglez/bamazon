@@ -4,6 +4,8 @@ const inquirer = require('inquirer');
 
 const dotenv = require('dotenv');
 
+const cTable = require('console.table');
+
 const keys = dotenv.config();
 
 const connection = mysql.createConnection({
@@ -17,5 +19,11 @@ const connection = mysql.createConnection({
 
   // Your password
   password: keys.parsed.SQLPASS,
-  database: "playlist_db"
+  database: "bamazon"
+});
+
+connection.query("SELECT * FROM products", function(err, res) {
+  if (err) throw err;
+  console.table(res);
+  connection.end();
 });
