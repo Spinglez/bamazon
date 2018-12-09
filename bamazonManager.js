@@ -40,10 +40,10 @@ function inv(){
       case 'View low Inventory':
         invLow();
         break;
-      case 'View low Inventory':
+      case 'Restock Item in Inventory':
         restock();
         break;
-      case 'View low Inventory':
+      case 'Add New Product':
         newItem();
         break;
       default:
@@ -66,7 +66,7 @@ function invLow(){
   connection.query(curInv, function(err, res){
     if (err) throw err;
     console.table(res);
-    connection.end();
+    dbCon();
   })
 }
 
