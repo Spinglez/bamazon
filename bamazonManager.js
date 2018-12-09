@@ -29,7 +29,7 @@ function inv(){
     {
       type: "list",
       message: "What would you like to do?",
-      choices: ['View Current Inventory','View low Inventory', 'Restock Item in Inventory','Add New Product'],
+      choices: ['View Current Inventory','View low Inventory', 'Adjust Items in Inventory','Add New Product','Exit'],
       name: 'continue'
     }
   ]).then(function(answer){
@@ -40,12 +40,15 @@ function inv(){
       case 'View low Inventory':
         invLow();
         break;
-      case 'Restock Item in Inventory':
+      case 'Adjust Items in Inventory':
         restock();
         break;
       case 'Add New Product':
         newItem();
         break;
+      case 'Exit':
+        exit();
+      break;
       default:
         dbCon();
     }
@@ -67,6 +70,68 @@ function invLow(){
     if (err) throw err;
     console.table(res);
     dbCon();
+  })
+}
+
+function restock(){
+  inquirer.prompt([
+    {
+    type: "input",
+    default: "number",
+    message: "Enter the product ID you'd like to restock",
+    name: "item",
+    validate: validate
+  },
+  {
+    type: "input",
+    default: "number",
+    message: "How many would you like to add?",
+    name: "quantity",
+    validate: validate
+  }
+  ])
+  .then(function(answer){
+    let query = "SELECT * FROM products WHERE ?"
+      console.log(answer.item, answer.quantity);
+      connection.query(query, {item_id: answer.item}, function(err,res){
+        if (err) throw err;
+        stock(res[0].stock_quantity, answer.quantity, answer.item);
+        // connection.query(stock, [{stock_quantity: res[0].stock_quantity - answer.quantity}, {item_id: answer.item}],function(err,resp))
+        console.log("You've adjusted the item:",res[0].product_name,"to",answer.quantity);
+      })
+  });
+}
+
+// for this function x = current stock, y = amount to add, and z = the item_id of what they selected
+function stock(x, y, z){
+  let stock = "UPDATE products SET ? WHERE ?"
+  connection.query(stock, [{stock_quantity: y}, {item_id: z}],function(err,resp){
+    if (err) throw err;
+    console.log(y,"Inventory updated!");
+    dbCon();
+  })
+};
+
+function validate(name) {
+   let reg = /^\d+$/;
+   return reg.test(name) || "Input should be a number!";
+}
+
+function exit(){
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "Would you really like to quit?",
+      choices: ['Yes','No'],
+      name: 'quit'
+    }
+  ]).then(function(answer){
+    if (answer.quit == 'Yes') {
+      console.log('Goodbye!');
+      connection.end();
+    }else {
+      dbCon();
+    }
   })
 }
 
