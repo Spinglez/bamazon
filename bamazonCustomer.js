@@ -50,7 +50,7 @@ function store(){
       console.log(answer.item, answer.quantity);
       connection.query(query, {item_id: answer.item}, function(err,res){
         if (err) throw err;
-        else if (res[0].stock_quantity <= 0 || res[0].stock_quantity - answer.quantity <= 0) {
+        else if (res[0].stock_quantity <= -1 || res[0].stock_quantity - answer.quantity <= -1) {
           console.log("\nthere's not sufficient quantity to purchase, please select an available amount or another item while we re-stock");
           store();
         }
@@ -97,8 +97,7 @@ function updateStock(x, y, z){
   })
 };
 
-function validate(name)
-{
+function validate(name) {
    let reg = /^\d+$/;
    return reg.test(name) || "Input should be a number!";
 }
