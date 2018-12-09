@@ -61,4 +61,13 @@ function currentInv(){
   });
 }
 
+function invLow(){
+  let curInv = 'SELECT * FROM products WHERE stock_quantity BETWEEN 0 AND 5'
+  connection.query(curInv, function(err, res){
+    if (err) throw err;
+    console.table(res);
+    connection.end();
+  })
+}
+
 dbCon();
