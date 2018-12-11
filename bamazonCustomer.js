@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
 });
 
 function dbCon(){
-  console.log("WELCOME TO BAMZAON \n");
+  console.log("WELCOME TO BAMAZON \n");
   connection.query("SELECT * FROM products", function(err, res) {
     if (err) throw err;
     console.table(res);

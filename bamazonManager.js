@@ -29,7 +29,7 @@ function inv(){
     {
       type: "list",
       message: "What would you like to do?",
-      choices: ['View Current Inventory','View low Inventory', 'Adjust Items in Inventory','Add New Product','Exit'],
+      choices: ['View Current Inventory','View low Inventory', 'Add quantity to items in Inventory','Add New Product','Exit'],
       name: 'continue'
     }
   ]).then(function(answer){
@@ -40,7 +40,7 @@ function inv(){
       case 'View low Inventory':
         invLow();
         break;
-      case 'Adjust Items in Inventory':
+      case 'Add quantity to items in Inventory':
         restock();
         break;
       case 'Add New Product':
