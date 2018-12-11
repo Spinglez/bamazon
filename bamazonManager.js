@@ -105,9 +105,9 @@ function restock(){
 // for this function x = current stock, y = amount to add, and z = the item_id of what they selected
 function stock(x, y, z){
   let stock = "UPDATE products SET ? WHERE ?"
-  connection.query(stock, [{stock_quantity: y}, {item_id: z}],function(err,resp){
+  connection.query(stock, [{stock_quantity: (parseFloat(x) + parseFloat(y))}, {item_id: z}],function(err,resp){
     if (err) throw err;
-    console.log(y,"Inventory updated!");
+    console.log('You\'ve added ',.y,z,"Inventory updated!");
     dbCon();
   })
 };
