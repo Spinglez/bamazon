@@ -107,10 +107,45 @@ function stock(x, y, z){
   let stock = "UPDATE products SET ? WHERE ?"
   connection.query(stock, [{stock_quantity: (parseFloat(x) + parseFloat(y))}, {item_id: z}],function(err,resp){
     if (err) throw err;
-    console.log('You\'ve added ',.y,z,"Inventory updated!");
+    console.log('You\'ve added ',y,z,"Inventory updated!");
     dbCon();
   })
 };
+
+function newItem(){
+  inquirer.prompt([
+    {
+      type: 'input',
+      default: 'string',
+      message: 'Name of the product you\'re adding',
+      name: 'prodName'
+    },
+    {
+      type: 'input',
+      default: 'string',
+      message: 'Name of the department item belongs in?',
+      name: 'deptName'
+    },
+    {
+      type: "input",
+      default: "number",
+      message: "What's the price of the product you're adding?",
+      name: "price",
+    },
+    {
+      type: "input",
+      default: "number",
+      message: "How many would you like to add?",
+      name: "quantity",
+      validate: validate
+    }
+  ]).then(function(answer){
+    console.log(answer.prodName,answer.deptName,answer.price,answer.quantity);
+    let add = 'INSERT INTO products (product_name, department_name, price, stock_quantity)'
+    let item = 'VALUES (?,?,?,?)'
+    exit();
+  });
+}
 
 function validate(name) {
    let reg = /^\d+$/;
