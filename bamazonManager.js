@@ -97,7 +97,7 @@ function restock(){
         if (err) throw err;
         stock(res[0].stock_quantity, answer.quantity, answer.item);
         // connection.query(stock, [{stock_quantity: res[0].stock_quantity - answer.quantity}, {item_id: answer.item}],function(err,resp))
-        console.log("You've adjusted the item:",res[0].product_name,"to",answer.quantity);
+        console.log("You've added:",answer.quantity,res[0].product_name);
       })
   });
 }
@@ -107,7 +107,7 @@ function stock(x, y, z){
   let stock = "UPDATE products SET ? WHERE ?"
   connection.query(stock, [{stock_quantity: (parseFloat(x) + parseFloat(y))}, {item_id: z}],function(err,resp){
     if (err) throw err;
-    console.log('You\'ve added ',y,z,"Inventory updated!");
+    console.log("Inventory updated!\n");
     dbCon();
   })
 };
@@ -141,8 +141,12 @@ function newItem(){
     }
   ]).then(function(answer){
     console.log(answer.prodName,answer.deptName,answer.price,answer.quantity);
-    let add = 'INSERT INTO products (product_name, department_name, price, stock_quantity)'
-    let item = 'VALUES (?,?,?,?)'
+    let add = 'INSERT INTO products SET ?'
+    let item = {product_name: answer.prodName, department_name: answer.deptName, price: answer.price, stock_quantity: answer.quantity};
+    connection.query(add, item ,function(err,resp){
+      if (err) throw err;
+      console.log('added',res.affectedRows,'item');
+    })
     exit();
   });
 }
@@ -156,12 +160,12 @@ function exit(){
   inquirer.prompt([
     {
       type: "list",
-      message: "Would you really like to quit?",
+      message: "Would you like to continue?",
       choices: ['Yes','No'],
       name: 'quit'
     }
   ]).then(function(answer){
-    if (answer.quit == 'Yes') {
+    if (answer.quit == 'No') {
       console.log('Goodbye!');
       connection.end();
     }else {
