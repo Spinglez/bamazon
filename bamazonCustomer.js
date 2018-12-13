@@ -47,7 +47,7 @@ function store(){
   ])
   .then(function(answer){
     let query = "SELECT * FROM products WHERE ?"
-      console.log(answer.item, answer.quantity);
+      // console.log(answer.item, answer.quantity);
       connection.query(query, {item_id: answer.item}, function(err,res){
         if (err) throw err;
         else if (res[0].stock_quantity <= -1 || res[0].stock_quantity - answer.quantity <= -1) {

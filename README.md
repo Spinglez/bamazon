@@ -15,19 +15,19 @@ First start by cloning the project into your local machine. Included in the file
 ### Customer mode!
 Start by running *node bamazonCustomer.js* if you did so correctly it will display this:
 
-TODO: [INSERT SCREENSHOT HERE]
+![Start screenshot](helpShot/start.JPG)
 
 See the table with all the items? It asks you to then select the "product" ID of the item you'd like to purchase. Go ahead, type a number and press enter you'll see the image below:
 
-TODO: [INSERT SCREENSHOT HERE]
+![Table screenshot](helpShot/table.JPG)
 
 As you can see the image above is asking how many you'd like to purchase, this performs some validation to make sure there's enough to purchase before actually updating the database, if you try to buy 600 Plapstation 4's it's really not gonna let you, like so:
 
-TODO: [INSERT SCREENSHOT HERE]
+![cant screenshot](helpShot/insuf.JPG)
 
 If you select a valid amount it'll tell you what you bought, how many and how much money you really shouldn't be spending! See below:
 
-TODO: [INSERT SCREENSHOT HERE]
+![Money screenshot](helpShot/good.JPG)
 
 It then asks you if you'd like to continue shopping! You can select yes or no if you select no you end your session!
 
